@@ -1,0 +1,81 @@
+﻿@using System.Collections
+@model Client_API_EF.Models.Product
+
+@{
+    ViewData["Title"] = "Create Product";
+    var categories = ViewData["categories"] as Category;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">CREATE A NEW PRODUCT</b></div>
+    <div class="content-main">
+        <form asp-action="productcreate" method="post" id="content-main-product" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="content-main-1">
+                <div class="form-group">
+                    <label class="control-label">Product name (*):</label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Unit price ($):</label>
+                    <input asp-for="UnitPrice" class="form-control" />
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Quantity per unit:</label>
+                    <input asp-for="QuantityPerUnit" class="form-control" />
+                    <span asp-validation-for="QuantityPerUnit" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Units in stock (*):</label>
+                    <input asp-for="UnitsInStock" class="form-control" />
+                    <span asp-validation-for="UnitsInStock" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="cart-item-img" style="width: 25% !important">
+                        <img id="image" src="#" />
+                        <input type="file" name="picture" accept="image/*" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                </div>
+            </div>
+            <div class="content-main-1">
+                <div class="form-group">
+                    <label>Category (*):</label>
+                    @Html.DropDownList("CategoryId", new SelectList((System.Collections.IEnumerable) ViewData["categories"],"Value","Text"))
+@*                    <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+*@                </div>
+                <div class="form-group">
+                    <label>Reorder level:</label>
+                    <input asp-for="ReorderLevel" class="form-control" />
+                    <span asp-validation-for="ReorderLevel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Units on order:</label>
+                    <input asp-for="UnitsOnOrder" class="form-control" disabled />
+                    <span asp-validation-for="UnitsOnOrder" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Discontinued" /> @Html.DisplayNameFor(model => model.Discontinued)
+                    </label>
+                </div>
+                <input type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>

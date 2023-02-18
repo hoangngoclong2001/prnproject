@@ -1,0 +1,183 @@
+﻿@using System.Collections
+@using Client_API_EF.Dtos
+@model IEnumerable<Client_API_EF.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+    var search = ViewData["search"] as string;
+    var filter = ViewData["filter"] as string;
+    var categories = ViewData["categories"] as Category;
+    var pagination = ViewData["pagination"] as PaginationMetadata;
+    var currentPage = pagination.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">PRODUCTS LIST</b></div>
+    <div class="content-main">
+        <div id="content-main-dashboard">
+            <div id="product-title-header">
+                <div id="product-title-1" style="width: 25%;">
+                    <b>Filter by Catetory:</b>
+                    <form asp-action="products" id="filter">
+                        @Html.DropDownList("filter", new SelectList((System.Collections.IEnumerable) ViewData["categories"],"Value","Text"))
+                        <input type="submit" value="Filter">
+                    </form>
+                </div>
+                <div id="product-title-2" style="width: 55%;">
+                    <form asp-action="products" id="search">
+                        @if (search != null)
+                        {
+                            <input type="text" name="search" value="@search" placeholder="Enter product name to search" />
+                        }
+                        else
+                        {
+                            <input type="text" name="search" placeholder="Enter product name to search" />
+                        }
+                        <input type="submit" value="Search" />
+                    </form>
+                </div>
+                <div id="product-title-3" style="width: 20%;">
+                    <a href="/admin/products/create">Create a new Product</a>
+                    <form action="">
+                        <label for="upload-file">Import .xls or .xlsx file</label>
+                        <input type="file" name="file" id="upload-file" />
+                    </form>
+                </div>
+            </div>
+            <div id="order-table">
+                @ViewData["deleteProduct"]
+                <table id="orders">
+                    <tbody>
+                        <tr>
+                            <th>ProductID</th>
+                            <th>ProductName</th>
+                            <th>UnitPrice</th>
+                            <th>Unit</th>
+                            <th>UnitsInStock</th>
+                            <th>Category</th>
+                            <th>Discontinued</th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><a href="/admin/products/detail/@item.ProductId">#@item.ProductId</a></td>
+                                <td>@item.ProductName</td>
+                                <td>$@(item.UnitPrice == null ? 0 : Math.Round((Decimal)item.UnitPrice, 2))</td>
+                                <td>@item.QuantityPerUnit</td>
+                                <td>@item.UnitsInStock</td>
+                                <td>@item.Category.CategoryName</td>
+                                <td>@item.Discontinued</td>
+                                <td>
+                                    <a href="/admin/products/edit/@item.ProductId">Edit</a> &nbsp; | &nbsp;
+                                    <a href="/admin/products/delete/@item.ProductId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="paging">
+                <div class="pagination">
+                    @{
+                        int start = currentPage - 3;
+                        int end = currentPage + 3;
+                        if (end > pagination.TotalPages)
+                        {
+                            start -= (end - pagination.TotalPages);
+                        }
+                        if (start <= 0)
+                        {
+                            end += ((start - 1) * (-1));
+                            start = 1;
+                        }
+                        end = end > pagination.TotalPages ? pagination.TotalPages : end;
+                    }
+                    @if (currentPage == 1)
+                    {
+                        <a href="#" class="disabled">&laquo;</a>
+                    }
+                    else
+                    {
+                        if (search!= null) 
+                        {
+                            <a href="http://localhost:5036/admin/products?search=@search&page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                        else if (filter != null) 
+                        {
+
+                            <a href="http://localhost:5036/admin/products?filter=@filter&page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                        else
+                        {
+                            <a href="http://localhost:5036/admin/products?page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                    }
+                    @for (int i = start; i <= end; i++)
+                    {
+                        if (i == currentPage)
+                        {
+                            if (search != null)
+                            {
+                                <a href="http://localhost:5036/admin/products?search=@search&page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                            else if (filter != null)
+                            {
+                                <a href="http://localhost:5036/admin/products?filter=@filter&page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/products?page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                        }
+                        else
+                        {
+                            if (search != null)
+                            {
+                                <a href="http://localhost:5036/admin/products?search=@search&page=@i&itemsperpage=10">@i</a>
+                            }
+                            else if (filter != null)
+                            {
+                                <a href="http://localhost:5036/admin/products?filter=@filter&page=@i&itemsperpage=10">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/products?page=@i&itemsperpage=10">@i</a>
+                            }
+                        }
+                    }
+                    @if (currentPage == pagination.TotalPages)
+                    {
+                        <a href="#" class="disabled">&raquo;</a>
+                    }
+                    else
+                    {
+                        if (search != null) 
+                        {
+                            <a href="http://localhost:5036/admin/products?search=@search&page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                        else if (filter != null) {
+                            <a href="http://localhost:5036/admin/products?filter=@filter&page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                        else 
+                        {
+                            <a href="http://localhost:5036/admin/products?page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

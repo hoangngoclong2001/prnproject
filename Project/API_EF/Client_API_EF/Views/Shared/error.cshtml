@@ -1,0 +1,16 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="form">
+    <div>
+        <img style="width: 100%" src="~/img/error.jpg">
+    </div>
+    <div id="form-title">
+        <h1 id="error-code">@Model.errorCode</h1>
+        <p id="error-text">@Model.errorMessage</p>
+        <a id="btn-home" href="/">Back to home page</a>
+    </div>
+</div>

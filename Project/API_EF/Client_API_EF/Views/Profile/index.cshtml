@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+    var customer = ViewData["Customer"] as Customer;
+    var account = ViewData["Account"] as Account;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <h3 style="font-weight: normal;">Welcome, @Model.Customer.ContactName</h3>
+    <h3>Account Management</h3>
+    <ul>
+        <a href="~/account/profile">
+        <li>Personal information</li></a>
+    </ul>
+    <h3>My order</h3>
+    <ul>
+        <a href="~/order/order">
+        <li>All orders</li></a>
+        <a href="#">
+        <li>Canceled order</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path">Personal information</b></div>
+    <div class="content-main">
+        <div id="profile-content">
+            <div class="profile-content-col">
+                <div>Company name: <br />@customer.CompanyName</div>
+                <div>Contact name: <br />@customer.ContactName</div>
+                <div>
+                    <input type="submit" value="Edit info" onclick="location.href='editprofile';" />
+                </div>
+            </div>
+            <div class="profile-content-col">
+                <div>Company title: <br />@customer.ContactTitle</div>
+                <div>Address: <br />@customer.Address</div>
+            </div>
+            <div class="profile-content-col">
+                <div>Email: <br />@account.Email</div>
+            </div>
+        </div>
+    </div>
+</div>

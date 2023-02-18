@@ -1,0 +1,157 @@
+﻿@using System.Security.Claims;
+@using Client_API_EF.Dtos
+@using Newtonsoft.Json
+@{
+    List<OrderDetailDto> cart = new List<OrderDetailDto>();
+    if (!string.IsNullOrEmpty(Context.Session.GetString("cart")))
+    {
+        cart = JsonConvert.DeserializeObject<List<OrderDetailDto>>(Context.Session.GetString("cart"));
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <a href="/"><img src="~/img/logo.png" /></a>
+            </div>
+            <div id="banner">
+                <ul>
+                    @if (((ClaimsIdentity)User.Identity).HasClaim(ClaimTypes.Role, "1"))
+                    {
+                        <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+                        <li><a href="/signout">SignOut</a></li>
+                    }
+                    else if (((ClaimsIdentity)User.Identity).HasClaim(ClaimTypes.Role, "2"))
+                    {
+                        @if (cart != null)
+                        {
+                            <li><a href="/cart">Cart: @cart.Count</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/cart">Cart: 0</a></li>
+                        }
+                        <li><a href="/profile/index">Profile</a></li>
+                        <li><a href="/signout">SignOut</a></li>
+                    }
+                    else
+                    {
+                        @if (cart != null)
+                        {
+                            <li><a href="/cart">Cart: @cart.Count</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/cart">Cart: 0</a></li>
+                        }
+                        <li><a href="/signin">SignIn</a></li>
+                        <li><a href="/signup">SignUp</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div id="footer">footer</div>
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script id="rendered-js">
+        $('.product-carousel').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            nextArrow: '<i class="arrow right">',
+            prevArrow: '<i class="arrow left">',
+            infinite: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true,
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    </script>
+    <script>
+        function OrdersChart() {
+            var xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+            new Chart("myChart1", {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+                        borderColor: "sienna",
+                        fill: true
+                    }]
+                },
+                options: {
+                    legend: { display: false }
+                }
+            });
+        }
+
+        function CustomersChart() {
+            var xValues = ["Total", "New customer"];
+            var yValues = [200, 50, 300];
+            var barColors = ["green", "red"];
+
+            new Chart("myChart2", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "New Customers (30 daily Avg)"
+                    }
+                }
+            });
+        }
+
+        OrdersChart();
+        CustomersChart();
+    </script>
+
+</body>
+</html>

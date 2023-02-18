@@ -1,0 +1,164 @@
+﻿@using Client_API_EF.Dtos
+@model IEnumerable<Client_API_EF.Models.Order>
+@{
+    ViewData["Title"] = "Orders";
+    var to = ViewData["to"] as string;
+    var from = ViewData["from"] as string;
+    var minmax = ViewData["minmax"] as DateTime?[];
+    var pagination = ViewData["pagination"] as PaginationMetadata;
+    var currentPage = pagination.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">ORDERS LIST</b></div>
+    <div class="content-main">
+        <div id="content-main-dashboard">
+            <div id="order-title">
+                <b>Filter by Order date:</b>
+                <form asp-action="orders">
+                    From: @if (from != null && to != null)
+                    {
+                        <input type="date" name="from" value="@from" min="@(minmax[0] != null ? minmax[0].Value.ToString("yyyy-MM-dd") : "")" max="@(minmax[1] != null ? minmax[1].Value.ToString("yyyy-MM-dd") : "")" />
+                    }
+                    else
+                    {
+                        <input type="date" name="from" min="@(minmax[0] != null ? minmax[0].Value.ToString("yyyy-MM-dd") : "")" max="@(minmax[1] != null ? minmax[1].Value.ToString("yyyy-MM-dd") : "")" />
+                    }
+                    To: @if (from != null && to != null)
+                    {
+                        <input type="date" name="to" value="@to" min="@(minmax[0] != null ? minmax[0].Value.ToString("yyyy-MM-dd") : "")" max="@(minmax[1] != null ? minmax[1].Value.ToString("yyyy-MM-dd") : "")" />
+                    }
+                    else
+                    {
+                        <input type="date" name="to" min="@(minmax[0] != null ? minmax[0].Value.ToString("yyyy-MM-dd") : "")" max="@(minmax[1] != null ? minmax[1].Value.ToString("yyyy-MM-dd") : "")" />
+                    }
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+            <div id="order-table">
+                <table id="orders">
+                    <tr>
+                        <th>OrderID</th>
+                        <th>OrderDate</th>
+                        <th>RequiredDate</th>
+                        <th>ShippedDate</th>
+                        <th>Employee</th>
+                        <th>Customer</th>
+                        <th>Freight($)</th>
+                        <th>Status</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a href="/admin/orders/detail/@item.OrderId">#@item.OrderId</a></td>
+                            <td>@(item.OrderDate != null ? item.OrderDate.Value.ToString("MM-dd-yyyy") : "N/A")</td>
+                            <td>@(item.RequiredDate != null ? item.RequiredDate.Value.ToString("MM-dd-yyyy") : "N/A")</td>
+                            <td>@(item.ShippedDate != null ? item.ShippedDate.Value.ToString("MM-dd-yyyy") : "N/A")</td>
+                            <td>@item.Employee.LastName</td>
+                            <td>@item.Customer.ContactName</td>
+                            <td>@(item.Freight == null ? 0 : Math.Round((Decimal)item.Freight, 2))</td>
+                            @if (item.RequiredDate == null && item.ShippedDate == null)
+                            {
+                                <td style="color: red;">Order canceled</td>
+                            }
+                            else if (item.ShippedDate == null)
+                            {
+                                <td style="color: blue;">Pending | <a href="#">Cancel</a></td>
+                            }
+                            else
+                            {
+                                <td style="color: green;">Completed</td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div id="paging">
+                <div class="pagination">
+                    @{
+                        int start = currentPage - 3;
+                        int end = currentPage + 3;
+                        if (end > pagination.TotalPages)
+                        {
+                            start -= (end - pagination.TotalPages);
+                        }
+                        if (start <= 0)
+                        {
+                            end += ((start - 1) * (-1));
+                            start = 1;
+                        }
+                        end = end > pagination.TotalPages ? pagination.TotalPages : end;
+                    }
+                    @if (currentPage == 1)
+                    {
+                        <a href="#" class="disabled">&laquo;</a>
+                    }
+                    else
+                    {
+                        if (from != null && to != null)
+                        {
+                            <a href="http://localhost:5036/admin/orders?from=@from&to=@to&page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                        else
+                        {
+                            <a href="http://localhost:5036/admin/orders?page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                    }
+                    @for (int i = start; i <= end; i++)
+                    {
+                        if (i == currentPage)
+                        {
+                            if (from != null && to != null)
+                            {
+                                <a href="http://localhost:5036/admin/orders?from=@from&to=@to&page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/orders?page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                        }
+                        else
+                        {
+                            if (from != null && to != null)
+                            {
+                                <a href="http://localhost:5036/admin/orders?from=@from&to=@to&page=@i&itemsperpage=10">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/orders?page=@i&itemsperpage=10">@i</a>
+                            }
+                        }
+                    }
+                    @if (currentPage == pagination.TotalPages)
+                    {
+                        <a href="#" class="disabled">&raquo;</a>
+                    }
+                    else
+                    {
+                        if (from != null && to != null)
+                        {
+                            <a href="http://localhost:5036/admin/orders?from=@from&to=@to&page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                        else
+                        {
+                            <a href="http://localhost:5036/admin/orders?page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

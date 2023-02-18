@@ -1,0 +1,90 @@
+﻿@model Client_API_EF.Dtos.OrderDto
+@using Client_API_EF.Dtos
+@using Newtonsoft.Json
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Cart";
+    decimal Total = 0;
+    List<OrderDetailDto> cart = new List<OrderDetailDto>();
+    if (!string.IsNullOrEmpty(Context.Session.GetString("cart"))) {
+        cart = JsonConvert.DeserializeObject<List<OrderDetailDto>>(Context.Session.GetString("cart"));
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="cart">
+    <div id="cart-title">
+        <h3>SHOPPING CART</h3>
+    </div>
+    <div id="cart-content">
+        @if (cart != null)
+        {
+            @foreach (var item in cart)
+            {
+                <div class="cart-item">
+                    <div class="cart-item-infor">
+                        <div class="cart-item-img">
+                                    <img src="~/img/1.jpg" />
+                        </div>
+                        <div class="cart-item-name">
+                            <a href="/@item.Product.ProductName">@item.Product.ProductName</a>
+                        </div>
+                        <div class="cart-item-price">
+                            $@(item.Product.UnitPrice == null ? 0 : Math.Round((Decimal)item.Product.UnitPrice, 2))
+                        </div>
+                        <div class="cart-item-button">
+                            <form asp-action="cart" method="post">
+                                <input type="hidden" name="name" value="@item.Product.ProductName" />
+                                <input type="submit" name="action" value="Remove">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cart-item-function" style="display: flex">
+                        <form asp-action="cart" method="post">
+                            <input type="hidden" name="name" value="@item.Product.ProductName" />
+                            <input type="submit" name="action" value="-">
+                        </form>
+                        <input id="quantity" style="text-align: center" type="text" value="@item.Quantity" disabled />
+                        <form asp-action="cart" method="post">
+                            <input type="hidden" name="name" value="@item.Product.ProductName" />
+                            <input type="submit" name="action" value="+">
+                        </form>
+                    </div>
+                </div>
+                Total += ((item.Product.UnitPrice == null ? 0 : Math.Round((Decimal)item.Product.UnitPrice, 2)) * item.Quantity);
+            }
+        }
+    </div>
+    <div id="cart-summary">
+        <div id="cart-summary-content">Total amount: <span id="total" style="color:red">$@Total</span></div>
+    </div>
+    <form asp-action="cart" method="post">
+        @if (!((ClaimsIdentity)User.Identity).HasClaim(ClaimTypes.Role, "2"))
+        {
+            <div id="customer-info">
+                <div id="customer-info-content">
+                    <h3>CUSTOMER INFORMATION:</h3>
+                    <div id="customer-info-detail">
+                        <div id="customer-info-left">
+                            <input asp-for="Customer.CustomerId" type="text" placeholder="CustomerID *" /><br />
+                            @*<span asp-validation-for="Customer.CustomerId" class="text-danger"></span><br />*@
+                            <input asp-for="Customer.CompanyName" type="text" placeholder="Company name *" /><br />
+                            @*<span asp-validation-for="Customer.CompanyName" class="text-danger"></span><br />*@
+                            <input asp-for="Customer.ContactName" type="text" placeholder="Contact name *" /><br />
+                            @*<span asp-validation-for="Customer.ContactName" class="text-danger"></span><br />*@
+                        </div>
+                        <div id="customer-info-right">
+                            <input asp-for="Customer.ContactTitle" type="text" placeholder="Contact title *" /><br />
+                            @*<span asp-validation-for="Customer.ContactTitle" class="text-danger"></span><br />*@
+                            <input asp-for="Customer.Address" type="text" placeholder="Address *" /><br />
+                            @*<span asp-validation-for="Customer.Address" class="text-danger"></span><br />*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div id="cart-order">
+            <input type="submit" name="action" value="ORDER">
+        </div>
+    </form>
+</div>

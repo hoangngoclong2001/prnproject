@@ -1,0 +1,130 @@
+﻿@using Client_API_EF.Dtos
+@model IEnumerable<Client_API_EF.Models.Customer>
+@{
+    ViewData["Title"] = "Customers";
+    var search = ViewData["search"] as string;
+    var pagination = ViewData["pagination"] as PaginationMetadata;
+    var currentPage = pagination.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">CUSTOMERS LIST</b></div>
+    <div class="content-main">
+        <div id="content-main-dashboard">
+            <div id="order-table">
+                <table id="orders">
+                    <tbody>
+                        <tr>
+                            <th>CustomerID</th>
+                            <th>CompanyName</th>
+                            <th>ContactName</th>
+                            <th>ContactTitle</th>
+                            <th>Address</th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><a href="/admin/customers/detail/@item.CustomerId">#@item.CustomerId</a></td>
+                                <td>@item.CompanyName</td>
+                                <td>@item.ContactName</td>
+                                <td>@item.ContactTitle</td>
+                                <td>@item.Address</td>
+                                <td>
+                                    <a href="/admin/customers/edit/@item.CustomerId">Edit</a> &nbsp; | &nbsp;
+                                    <a href="/admin/customers/delete/@item.CustomerId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="paging">
+                <div class="pagination">
+                    @{
+                        int start = currentPage - 3;
+                        int end = currentPage + 3;
+                        if (end > pagination.TotalPages)
+                        {
+                            start -= (end - pagination.TotalPages);
+                        }
+                        if (start <= 0)
+                        {
+                            end += ((start - 1) * (-1));
+                            start = 1;
+                        }
+                        end = end > pagination.TotalPages ? pagination.TotalPages : end;
+                    }
+                    @if (currentPage == 1)
+                    {
+                        <a href="#" class="disabled">&laquo;</a>
+                    }
+                    else
+                    {
+                        if (search != null)
+                        {
+                            <a href="http://localhost:5036/admin/customers?search=@search&page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                        else
+                        {
+                            <a href="http://localhost:5036/admin/customers?page=@(currentPage-1)&itemsperpage=10">&laquo;</a>
+                        }
+                    }
+                    @for (int i = start; i <= end; i++)
+                    {
+                        if (i == currentPage)
+                        {
+                            if (search != null)
+                            {
+                                <a href="http://localhost:5036/admin/customers?search=@search&page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/customers?page=@i&itemsperpage=10" class="active">@i</a>
+                            }
+                        }
+                        else
+                        {
+                            if (search != null)
+                            {
+                                <a href="http://localhost:5036/admin/customers?search=@search&page=@i&itemsperpage=10">@i</a>
+                            }
+                            else
+                            {
+                                <a href="http://localhost:5036/admin/customers?page=@i&itemsperpage=10">@i</a>
+                            }
+                        }
+                    }
+                    @if (currentPage == pagination.TotalPages)
+                    {
+                        <a href="#" class="disabled">&raquo;</a>
+                    }
+                    else
+                    {
+                        if (search != null)
+                        {
+                            <a href="http://localhost:5036/admin/customers?search=@search&page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                        else
+                        {
+                            <a href="http://localhost:5036/admin/customers?page=@(currentPage+1)&itemsperpage=10">&raquo;</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

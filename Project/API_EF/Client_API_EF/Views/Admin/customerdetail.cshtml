@@ -1,0 +1,45 @@
+﻿@using System.Collections
+@model Client_API_EF.Models.Customer
+
+@{
+    ViewData["Title"] = "Customer Detail";
+    var categories = ViewData["categories"] as Category;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">PRODUCT DETAIL</b></div>
+    <div class="content-main">
+        <form id="content-main-product">
+            <div class="content-main-1">
+                <label>Company name (*):</label>
+                @Html.DisplayFor(model => model.CompanyName)
+                <br />
+                <label>Contact name:</label>
+                @Html.DisplayFor(model => model.ContactTitle) @Html.DisplayFor(model => model.ContactName)
+                <br />
+                <label>Units in stock (*):</label>
+                @Html.DisplayFor(model => model.Address)
+            </div>
+            <div class="content-main-1">
+                @*<div class="cart-item-img">
+                    <div class="cart-item-img" style="width: 500% !important">
+                        <img src="~/img/@Model.PictureFileName" />
+                    </div>
+                </div>*@
+            </div>
+        </form>
+    </div>
+</div>

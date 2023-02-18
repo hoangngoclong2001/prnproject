@@ -1,0 +1,109 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Client_API_EF
+build_property.RootNamespace = Client_API_EF
+build_property.ProjectDir = E:\prn231\Ng\API_EF\Client_API_EF\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\prn231\Ng\API_EF\Client_API_EF
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/customerdetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY3VzdG9tZXJkZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/customers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY3VzdG9tZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cZGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/orderdetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cb3JkZXJkZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cb3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/productcreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccHJvZHVjdGNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/productdetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccHJvZHVjdGRldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/productedit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccHJvZHVjdGVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Admin/products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccHJvZHVjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxkZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/forgot.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxmb3Jnb3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxwcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/signin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzaWduaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Home/signup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzaWdudXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Profile/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Profile/orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxvcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Shared/error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXGVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/prn231/Ng/API_EF/Client_API_EF/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-auebom3qbz

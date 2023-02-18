@@ -1,0 +1,25 @@
+﻿@model Client_API_EF.Dtos.SigninDto
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="form">
+    <div id="form-title">
+        <span><a href="/signup">SIGN UP</a></span>
+        <span><a href="/signin" style="color: red;">SIGN IN</a></span>
+    </div>
+    <div id="form-content">
+        <form asp-action="signin" method="post">
+            <label>Email<span style="color: red;">*</span></label><br />
+            <input asp-for="Email" type="text" class="form-control" /><br />
+            <span asp-validation-for="Email" class="text-danger"></span><br />
+            <label>Password<span style="color: red;">*</span></label><br/>
+            <input asp-for="Password" type="password"  class="form-control" /><br />
+            <span asp-validation-for="Password" class="text-danger"></span><br />
+            <div><a href="forgot.html">Forgot password?</a></div>
+            <input type="submit" value="SIGN IN"/><br/>
+        </form>
+    </div>
+</div>
+

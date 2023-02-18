@@ -1,0 +1,43 @@
+﻿@model Client_API_EF.Dtos.SignupDto
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="form">
+    <div id="form-title">
+            <span><a href="/signup" style="color: red;">SIGN UP</a></span>
+            <span><a href="/signin">SIGN IN</a></span>
+    </div>
+    <div id="form-content">
+        <form asp-action="signup" method="post">
+            <label>Email<span style="color: red;">*</span></label><br />
+            <input asp-for="Email" type="text" class="form-control" /><br />
+            <span asp-validation-for="Email" class="text-danger"></span><br />
+            <label>Password<span style="color: red;">*</span></label><br />
+            <input asp-for="Password" type="password" class="form-control" /><br />
+            <span asp-validation-for="Password" class="text-danger"></span><br />
+            <label>Re-Password<span style="color: red;">*</span></label><br />
+            <input asp-for="ConfirmPassword" type="password" class="form-control" /><br />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span><br />
+            <label>Company Id<span style="color: red;">*</span></label><br />
+            <input asp-for="CompanyId" type="text" class="form-control" /><br />
+            <span asp-validation-for="CompanyId" class="text-danger"></span><br />
+            <label>Company name<span style="color: red;">*</span></label><br />
+            <input asp-for="CompanyName" type="text" class="form-control" /><br />
+            <span asp-validation-for="CompanyName" class="text-danger"></span><br />
+            <label>Contact name<span style="color: red;">*</span></label><br />
+            <input asp-for="ContactName" type="text" class="form-control" /><br />
+            <span asp-validation-for="ContactName" class="text-danger"></span><br />
+            <label>Contact title<span style="color: red;">*</span></label><br />
+            <input asp-for="ContactTitle" type="text" class="form-control" /><br />
+            <span asp-validation-for="ContactTitle" class="text-danger"></span><br />
+            <label>Address<span style="color: red;">*</span></label><br />
+            <input asp-for="Address" type="text" class="form-control" /><br />
+            <span asp-validation-for="Address" class="text-danger"></span><br />
+            <div></div>
+            <input type="submit" value="SIGN UP" style="margin-bottom: 30px;" />
+        </form>
+    </div>
+</div>
+

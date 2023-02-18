@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Client_API_EF.Models.OrderDetail>
+@{
+    ViewData["Title"] = "Order Details";
+    var order = ViewData["order"] as Order;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content-left">
+    <ul>
+        <a href="/admin/dashboard">
+        <li>Dashboard</li></a>
+        <a href="/admin/orders">
+        <li>Orders</li></a>
+        <a href="/admin/products">
+        <li>Products</li></a>
+        <a href="/admin/customers">
+        <li>Customers</li></a>
+    </ul>
+</div>
+<div id="content-right">
+    <div class="path-admin">ORDER DETAIL</b></div>
+    <div class="content-main">
+        <div id="content-main-dashboard">
+            <div id="order-table">
+                <table id="orders">
+                    <tr>
+                        <th>OrderID</th>
+                        <th>ProductName</th>
+                        <th>UnitPrice</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Picture</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OrderId</td>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Discount</td>
+                            @foreach (var picture in item.Product.Pictures) {
+                                if (!(bool)picture.PictureType) {
+                                    <td><img src="~/img/@picture.PictureFileName" width="20%" /></td>
+                                }
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
